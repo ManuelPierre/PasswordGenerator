@@ -97,6 +97,8 @@ function generatePassword() {
     prompt("Specify the number of characters your password should have")
   );
 
+  var password = "";
+
   if (isNaN(length) === true) {
     console.log("test");
     alert("Password requires a number");
@@ -138,11 +140,31 @@ function generatePassword() {
 
   var passwordText = {
     length: length,
+    reqUpperCase: reqUpperCase,
     reqLowerCase: reqLowerCase,
     reqNum: reqNum,
     reqSpecChar: reqSpecChar,
-    reqUpperCase: reqUpperCase,
   };
+
+  var options = [upperAlpha, lowerAlpha, numb, specChar];
+
+  for (var i = 0; i < passwordText.length; i++) {
+    if (i < 4) {
+      password += options[i][Math.floor(Math.random() * options[i].length)];
+      console.log(password);
+    } else {
+      var randIndex = Math.floor(Math.random() * options.length);
+      password +=
+        options[randIndex][
+          Math.floor(Math.random() * options[randIndex].length)
+        ];
+    }
+  }
+
+  console.log(password);
   console.log(passwordText);
-  return passwordText;
+  return password;
 }
+
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
